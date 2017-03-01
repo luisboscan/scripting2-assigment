@@ -6,50 +6,30 @@ public class TargetCameraScript : MonoBehaviour {
 
     public GameObject player;
     public GameObject target;
+    public float distanceBehindPlayer = 4f;
+    public float angle = 45f;
+    public float smoothTime = 0.2f;
 
-    private float distanceFromPlayer = 3f;
-    private float angle = 45f;
-    
+    private Vector3 currentDampVelocity;
 
-	// Use this for initialization
-	void Start () {
-	}
-
-    Vector3 middlePoint;
-    Vector3 velocity;
-    // Update is called once per frame
     void FixedUpdate () {
-        transform.position = Vector3.SmoothDamp(transform.position, GetNextPosition(), ref velocity, 0.3f);
-
-        transform.LookAt(middlePoint);
-
-        
-
-
+        Vector3 focusPoint = GetFocusPoint();
+        transform.LookAt(focusPoint);
+        transform.position = Vector3.SmoothDamp(transform.position, GetNextPosition(focusPoint), ref currentDampVelocity, smoothTime);
     }
 
-    Vector3 GetNextPosition()
+    private Vector3 GetFocusPoint()
     {
-        Vector3 currentPosition = transform.position;
-        Vector3 distance = target.transform.position - player.transform.position;
-        middlePoint = target.transform.position - distance / 2;
+        // The focus point is the middle position between the target and the player
+        return player.transform.position + (target.transform.position - player.transform.position);
+    }
 
-        Vector3 cameraOffset = -distance;
-        cameraOffset = Vector3.Normalize(cameraOffset);
-        cameraOffset.y = Mathf.Sin(angle * Mathf.Deg2Rad);
-        transform.position = player.transform.position + cameraOffset * distanceFromPlayer;
-        transform.RotateAround(middlePoint, Vector3.up, 15);
-        Vector3 nextPosition = transform.position;
-        transform.position = currentPosition;
+    private Vector3 GetNextPosition(Vector3 focusPoint)
+    {
+        Vector3 directionBehindPlayer = Vector3.Normalize(player.transform.position - focusPoint);
+        // Move the camera vertically depending on the specified angle
+        directionBehindPlayer.y = Mathf.Sin(angle * Mathf.Deg2Rad);
+        Vector3 nextPosition = player.transform.position + (directionBehindPlayer * distanceBehindPlayer);
         return nextPosition;
-    }
-
-    Vector2 GetXYDirection(float angle, float magnitude) {
-        return new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * magnitude;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawSphere(middlePoint, 1);
     }
 }
