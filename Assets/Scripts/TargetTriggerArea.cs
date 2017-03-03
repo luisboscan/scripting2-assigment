@@ -8,18 +8,12 @@ public class TargetTriggerArea : MonoBehaviour
     public float raycastLength;
     private List<GameObject> targets = new List<GameObject>();
     private List<GameObject> targetsInSight = new List<GameObject>();
-    public Canvas canvas;
-    public GameObject sprite;
-    public TargetCameraScript targetCameraScript;
 
-    private GameObject currentTarget;
-
-    void Update()
+    public GameObject getNextAvailableTarget()
     {
+        GameObject nextTarget = null;
         targetsInSight.Clear();
-        sprite.SetActive(false);
-        currentTarget = null;
-        for (int i=0; i<targets.Count; i++)
+        for (int i = 0; i < targets.Count; i++)
         {
             GameObject target = targets[i];
             Vector3 viewportPoint = camera.WorldToViewportPoint(target.transform.position);
@@ -38,32 +32,19 @@ public class TargetTriggerArea : MonoBehaviour
             targetsInSight.Add(target);
         }
         float minDistance = 0;
-        for (int i=0; i<targetsInSight.Count; i++)
+        for (int i = 0; i < targetsInSight.Count; i++)
         {
             GameObject target = targetsInSight[i];
             Vector3 viewportPoint = camera.WorldToViewportPoint(target.transform.position);
             float distanceX = Mathf.Abs(viewportPoint.x - 0.5f);
-            if (currentTarget == null || distanceX < minDistance)
+            if (i == 0 || distanceX < minDistance)
             {
-                currentTarget = target;
+                nextTarget = target;
                 minDistance = distanceX;
             }
         }
-        if (currentTarget != null)
-        {
-            sprite.SetActive(true);
-            sprite.transform.position = currentTarget.transform.position;
-            sprite.transform.LookAt(Camera.main.transform.position, -Vector3.up);
-        }
-        if (currentTarget != null && Input.GetKeyDown(KeyCode.T))
-        {
-            targetCameraScript.enabled = true;
-        }
-        if (currentTarget == null)
-        {
-            targetCameraScript.enabled = false;
-        }
         Debug.Log("Count: " + targetsInSight.Count);
+        return nextTarget;
     }
 
     void OnTriggerEnter(Collider other)

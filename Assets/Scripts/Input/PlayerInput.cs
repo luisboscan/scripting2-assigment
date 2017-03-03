@@ -9,10 +9,13 @@ public class PlayerInput : MonoBehaviour {
     public float verticalDirection;
     public bool holdingJump;
     public bool jumped;
+    [Tooltip("Rotation from the mouse to apply on the camera.")]
+    public Vector3 rotation;
 
     void Update()
     {
         this.SetDirection();
+        this.SetRotation();
         this.SetJump();
     }
 
@@ -36,6 +39,19 @@ public class PlayerInput : MonoBehaviour {
         {
             this.verticalDirection = 1;
         }
+    }
+
+    private void SetRotation()
+    {
+        float yaw = Input.GetAxis("Mouse X") * this.keyboardMouseConfig.mouseXSensitivity;
+        float pitch = Input.GetAxis("Mouse Y") * this.keyboardMouseConfig.mouseYSensitivity;
+
+        if (this.keyboardMouseConfig.invertY)
+        {
+            pitch *= -1;
+        }
+
+        this.rotation = new Vector3(yaw, pitch, 0f);
     }
 
     void SetJump()
