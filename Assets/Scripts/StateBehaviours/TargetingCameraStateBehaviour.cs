@@ -7,6 +7,7 @@ public class TargetingCameraStateBehaviour : StateBehaviour<CameraStates>
 {
     public CameraStateMachine stateMachine;
 
+    public ThirdPersonCameraController thirdPersonCameraController;
     public TargetingCameraController targetingCameraController;
     public TargetTriggerArea targetTriggerArea;
     public GameObject sprite;
@@ -26,12 +27,15 @@ public class TargetingCameraStateBehaviour : StateBehaviour<CameraStates>
         targetingCameraController.enabled = true;
     }
 
-    public override void FixedUpdateState()
+    public override void UpdateState()
     {
         ManageTargetSprite(targetingCameraController.target);
         if (Input.GetKeyDown(KeyCode.T) || !targetTriggerArea.Targets.Contains(targetingCameraController.target))
         {
-            stateMachine.ChangeState(CameraStates.Idle);
+            TransitioningCameraStateBehaviour transitioningCameraStateBehaviour = (TransitioningCameraStateBehaviour)stateMachine.GetStateBehaviour(CameraStates.Transitioning);
+            transitioningCameraStateBehaviour.destinationCameraController = thirdPersonCameraController;
+            transitioningCameraStateBehaviour.nextState = CameraStates.Idle;
+            stateMachine.ChangeState(CameraStates.Transitioning);
         }
     }
 

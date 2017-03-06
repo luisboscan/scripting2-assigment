@@ -42,8 +42,13 @@ public class StateMachine<T> : MonoBehaviour {
         }
     }
 
-    public void registerStateBehaviour(T state, StateBehaviour<T> stateBehaviour)
+    public void RegisterStateBehaviour(T state, StateBehaviour<T> stateBehaviour)
     {
         stateBehaviours.Add(state, stateBehaviour);
+    }
+
+    public StateBehaviour<T> GetStateBehaviour(T state)
+    {
+        return stateBehaviours[state];
     }
 }

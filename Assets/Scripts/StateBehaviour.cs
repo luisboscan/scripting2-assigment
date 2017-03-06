@@ -10,7 +10,7 @@ public abstract class StateBehaviour<T> : MonoBehaviour {
 
     void Start()
     {
-        GetStateMachine().registerStateBehaviour(GetState(), this);
+        GetStateMachine().RegisterStateBehaviour(GetState(), this);
     }
 
     public virtual void EnterState () {

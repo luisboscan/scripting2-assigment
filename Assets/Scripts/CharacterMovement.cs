@@ -221,6 +221,10 @@ public class CharacterMovement : MonoBehaviour {
         Quaternion rotation = Camera.main.transform.rotation;
         rotation = Quaternion.Euler(0, rotation.eulerAngles.y, rotation.eulerAngles.z);
         characterController.Move(rotation * speed);
+        if ( (currentInput.x != 0 || currentInput.z != 0))
+        {
+            transform.rotation = Quaternion.LookRotation(rotation * new Vector3(currentInput.x, 0, currentInput.z));
+        }
     }
 
     public void SetSpeed(float x, float y, float z)

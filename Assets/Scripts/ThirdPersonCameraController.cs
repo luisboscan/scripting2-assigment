@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -61,5 +62,10 @@ public class ThirdPersonCameraController : MonoBehaviour, CameraController
             }
         }
         return Mathf.Clamp(angle, min, max);
+    }
+
+    public void Reset()
+    {
+        currentAngle = target.transform.rotation.eulerAngles.y;
     }
 }

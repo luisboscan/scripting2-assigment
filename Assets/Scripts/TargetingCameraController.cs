@@ -53,4 +53,10 @@ public class TargetingCameraController : MonoBehaviour, CameraController
         Vector3 nextPosition = player.transform.position + (directionBehindPlayer * distanceBehindPlayer);
         return nextPosition;
     }
+
+
+
+    public void Reset()
+    {
+    }
 }

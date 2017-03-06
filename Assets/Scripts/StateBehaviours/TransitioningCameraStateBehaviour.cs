@@ -8,10 +8,12 @@ public class TransitioningCameraStateBehaviour : StateBehaviour<CameraStates>
     public CameraStateMachine stateMachine;
 
     public AnimationCurve throwSpeedCurve;
-    public CameraController originCameraController;
     public CameraController destinationCameraController;
+    public CameraStates nextState;
+
     private float startTime;
     public float transitionTime = 0.5f;
+
     Vector3 originPosition;
     Quaternion originRotation;
 
@@ -30,6 +32,7 @@ public class TransitioningCameraStateBehaviour : StateBehaviour<CameraStates>
         startTime = Time.time;
         originPosition = transform.position;
         originRotation = transform.rotation;
+        destinationCameraController.Reset();
     }
 
     public override void FixedUpdateState()
@@ -46,7 +49,7 @@ public class TransitioningCameraStateBehaviour : StateBehaviour<CameraStates>
 
         if (delta >= 1)
         {
-            stateMachine.ChangeState(CameraStates.Idle);
+            stateMachine.ChangeState(nextState);
         }
     }
 }

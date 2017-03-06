@@ -26,14 +26,17 @@ public class IdleCameraStateBehaviour : StateBehaviour<CameraStates>
         thirdPersonCameraController.enabled = true;
     }
 
-    public override void FixedUpdateState()
+    public override void UpdateState()
     {
         GameObject nextAvailableTarget = targetTriggerArea.getNextAvailableTarget();
         ManageTargetSprite(nextAvailableTarget);
         if (Input.GetKeyDown(KeyCode.T) && nextAvailableTarget != null)
         {
             targetingCameraController.target = nextAvailableTarget;
-            stateMachine.ChangeState(CameraStates.Targeting);
+            TransitioningCameraStateBehaviour transitioningCameraStateBehaviour = (TransitioningCameraStateBehaviour)stateMachine.GetStateBehaviour(CameraStates.Transitioning);
+            transitioningCameraStateBehaviour.destinationCameraController = targetingCameraController;
+            transitioningCameraStateBehaviour.nextState = CameraStates.Targeting;
+            stateMachine.ChangeState(CameraStates.Transitioning);
         }
     }
 
