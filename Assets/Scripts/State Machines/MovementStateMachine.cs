@@ -8,11 +8,11 @@ public class MovementStateMachine : MonoBehaviour {
     public PlayerInput playerInput;
     public CharacterMovement characterMovement;
     public GroundCheck groundCheck;
-    private StateMachine<MovementStates> stateMachine;    
+    private MonsterLove.StateMachine.StateMachine<MovementStates> stateMachine;    
 
     // Use this for initialization
     void Awake() {
-        stateMachine = StateMachine<MovementStates>.Initialize(this, MovementStates.InputEnabled);
+        stateMachine = MonsterLove.StateMachine.StateMachine<MovementStates>.Initialize(this, MovementStates.InputEnabled);
     }
 
     void Frozen_Enter()
@@ -36,7 +36,7 @@ public class MovementStateMachine : MonoBehaviour {
         characterMovement.Move();
     }
 
-    public StateMachine<MovementStates> StateMachine
+    public MonsterLove.StateMachine.StateMachine<MovementStates> StateMachine
     {
         get { return stateMachine; }
     }

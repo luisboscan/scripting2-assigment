@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TargetingCameraController : MonoBehaviour {
+public class TargetingCameraController : MonoBehaviour, CameraController
+{
 
     public GameObject player;
     public GameObject target;
@@ -31,15 +32,15 @@ public class TargetingCameraController : MonoBehaviour {
         return GetNextPosition(focusPoint);
     }
 
-    public void GetNextPosition(out Vector3 nextPosition, out Quaternion nextRotation)
+    public void GetNextState(out Vector3 position, out Quaternion rotation)
     {
         Vector3 focusPoint = GetFocusPoint();
-        nextPosition = GetNextPosition(focusPoint);
+        position = GetNextPosition(focusPoint);
         Vector3 currentPosition = transform.position;
         Quaternion currentRotation = transform.rotation;
-        transform.position = nextPosition;
+        transform.position = position;
         transform.LookAt(focusPoint);
-        nextRotation = transform.rotation;
+        rotation = transform.rotation;
         transform.position = currentPosition;
         transform.rotation = currentRotation;
     }

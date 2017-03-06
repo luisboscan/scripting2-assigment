@@ -10,13 +10,13 @@ public class ActionStateMachine : MonoBehaviour {
     public CharacterMovement characterMovement;
 
     // State machines
-    private StateMachine<ActionStates> actionStateMachine;
-    private StateMachine<MovementStates> movementStateMachine;
+    private MonsterLove.StateMachine.StateMachine<ActionStates> actionStateMachine;
+    private MonsterLove.StateMachine.StateMachine<MovementStates> movementStateMachine;
 
     // Use this for initialization
     void Start() {
         movementStateMachine = GetComponent<MovementStateMachine>().StateMachine;
-        actionStateMachine = StateMachine<ActionStates>.Initialize(this, ActionStates.Idle);
+        actionStateMachine = MonsterLove.StateMachine.StateMachine<ActionStates>.Initialize(this, ActionStates.Idle);
     }
 
     void Idle_Enter()

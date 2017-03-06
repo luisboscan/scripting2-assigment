@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThirdPersonCameraController : MonoBehaviour
+public class ThirdPersonCameraController : MonoBehaviour, CameraController
 {
     public PlayerInput playerInput;
     public GameObject target;
@@ -10,7 +10,7 @@ public class ThirdPersonCameraController : MonoBehaviour
     public float rotationSpeed;
     Vector3 offset;
     float currentAngle;
-    Quaternion rotation;
+    Quaternion originalRotation;
     public float smoothTime = 0.1f;
 
     private Vector3 currentDampVelocity;
@@ -20,7 +20,7 @@ public class ThirdPersonCameraController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         offset = target.transform.position - transform.position;
-        rotation = transform.rotation;
+        originalRotation = transform.rotation;
     }
 
     void FixedUpdate()
@@ -31,19 +31,19 @@ public class ThirdPersonCameraController : MonoBehaviour
 
         Vector3 nextPosition;
         Quaternion nextRotation;
-        GetNextPosition(out nextPosition, out nextRotation);
+        GetNextState(out nextPosition, out nextRotation);
 
         transform.position = nextPosition;
         transform.rotation = nextRotation;
     }
 
-    public void GetNextPosition(out Vector3 nextPosition, out Quaternion nextRotation)
+    public void GetNextState(out Vector3 position, out Quaternion rotation)
     {
         dummy.transform.position = target.transform.position - offset;
-        dummy.transform.rotation = rotation;
+        dummy.transform.rotation = originalRotation;
         dummy.transform.RotateAround(target.transform.position, Vector3.up, currentAngle);
-        nextPosition = dummy.transform.position;
-        nextRotation = dummy.transform.rotation;
+        position = dummy.transform.position;
+        rotation = dummy.transform.rotation;
     }
 
     public static float ClampAngle(float angle, float min, float max)

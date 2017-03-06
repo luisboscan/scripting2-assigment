@@ -4,8 +4,7 @@ using UnityEngine;
 
 public enum CameraStates {
 
-    PreIdle,
     Idle,
     Targeting,
-    PreTargeting
+    Transitioning
 }
