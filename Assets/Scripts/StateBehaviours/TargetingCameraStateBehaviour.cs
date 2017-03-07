@@ -30,18 +30,21 @@ public class TargetingCameraStateBehaviour : StateBehaviour<CameraStates>
     public override void UpdateState()
     {
         ManageTargetSprite(targetingCameraController.target);
-        if (Input.GetKeyDown(KeyCode.T) || !targetTriggerArea.Targets.Contains(targetingCameraController.target))
+        if (!targetTriggerArea.Targets.Contains(targetingCameraController.target))
         {
-            TransitioningCameraStateBehaviour transitioningCameraStateBehaviour = (TransitioningCameraStateBehaviour)stateMachine.GetStateBehaviour(CameraStates.Transitioning);
-            transitioningCameraStateBehaviour.destinationCameraController = thirdPersonCameraController;
-            transitioningCameraStateBehaviour.nextState = CameraStates.Idle;
-            stateMachine.ChangeState(CameraStates.Transitioning);
+            stateMachine.ChangeState(CameraStates.PreIdle);
         }
     }
 
     public override void ExitState()
     {
         targetingCameraController.enabled = false;
+    }
+
+    public override bool CanEnterState()
+    {
+        GameObject nextAvailableTarget = targetTriggerArea.getNextAvailableTarget();
+        return nextAvailableTarget != null;
     }
 
     void ManageTargetSprite(GameObject target)

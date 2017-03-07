@@ -8,12 +8,18 @@ public abstract class StateBehaviour<T> : MonoBehaviour {
 
     public abstract StateMachine<T> GetStateMachine();
 
-    void Start()
+    void Awake()
     {
         GetStateMachine().RegisterStateBehaviour(GetState(), this);
     }
 
-    public virtual void EnterState () {
+    public virtual bool CanEnterState()
+    {
+        return true;
+    }
+
+    public virtual void EnterState ()
+    {
 
     }
 
@@ -27,7 +33,8 @@ public abstract class StateBehaviour<T> : MonoBehaviour {
 
     }
 
-    public virtual void ExitState() {
+    public virtual void ExitState()
+    {
 
     }
 }

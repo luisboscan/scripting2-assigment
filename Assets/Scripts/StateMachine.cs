@@ -30,16 +30,21 @@ public class StateMachine<T> : MonoBehaviour {
         }
     }
 
-    public void ChangeState(T nextState)
+    public bool ChangeState(T nextState)
     {
         StateBehaviour<T> currentStateBehaviour = stateBehaviours[currentState];
         StateBehaviour<T> nextStateBehaviour = stateBehaviours[nextState];
-        currentState = nextState;
-        if (initialized)
+        if (nextStateBehaviour.CanEnterState())
         {
-            currentStateBehaviour.ExitState();
-            nextStateBehaviour.EnterState();
+            currentState = nextState;
+            if (initialized)
+            {
+                currentStateBehaviour.ExitState();
+                nextStateBehaviour.EnterState();
+            }
+            return true;
         }
+        return false;
     }
 
     public void RegisterStateBehaviour(T state, StateBehaviour<T> stateBehaviour)
@@ -50,5 +55,10 @@ public class StateMachine<T> : MonoBehaviour {
     public StateBehaviour<T> GetStateBehaviour(T state)
     {
         return stateBehaviours[state];
+    }
+
+    public T State
+    {
+        get { return currentState; }
     }
 }

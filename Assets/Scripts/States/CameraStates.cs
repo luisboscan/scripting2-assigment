@@ -6,5 +6,6 @@ public enum CameraStates {
 
     Idle,
     Targeting,
-    Transitioning
+    PreTargeting,
+    PreIdle
 }

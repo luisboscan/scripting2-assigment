@@ -7,6 +7,7 @@ public class ActionStateMachine : MonoBehaviour {
 
     public PlayerInput playerInput;
     public GroundCheck groundCheck;
+    public CameraStateMachine cameraStateMachine;
     public CharacterMovement characterMovement;
 
     // State machines
@@ -31,6 +32,16 @@ public class ActionStateMachine : MonoBehaviour {
         if (playerInput.jumped)
         {
             actionStateMachine.ChangeState(ActionStates.Jumping);
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (cameraStateMachine.State == CameraStates.Idle || cameraStateMachine.State == CameraStates.PreIdle)
+            {
+                cameraStateMachine.ChangeState(CameraStates.PreTargeting);
+            } else if (cameraStateMachine.State == CameraStates.Targeting || cameraStateMachine.State == CameraStates.PreTargeting)
+            {
+                cameraStateMachine.ChangeState(CameraStates.PreIdle);
+            }
         }
     }
 

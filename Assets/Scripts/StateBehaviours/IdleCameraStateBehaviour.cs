@@ -30,14 +30,6 @@ public class IdleCameraStateBehaviour : StateBehaviour<CameraStates>
     {
         GameObject nextAvailableTarget = targetTriggerArea.getNextAvailableTarget();
         ManageTargetSprite(nextAvailableTarget);
-        if (Input.GetKeyDown(KeyCode.T) && nextAvailableTarget != null)
-        {
-            targetingCameraController.target = nextAvailableTarget;
-            TransitioningCameraStateBehaviour transitioningCameraStateBehaviour = (TransitioningCameraStateBehaviour)stateMachine.GetStateBehaviour(CameraStates.Transitioning);
-            transitioningCameraStateBehaviour.destinationCameraController = targetingCameraController;
-            transitioningCameraStateBehaviour.nextState = CameraStates.Targeting;
-            stateMachine.ChangeState(CameraStates.Transitioning);
-        }
     }
 
     public override void ExitState()
