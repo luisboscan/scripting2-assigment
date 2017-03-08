@@ -5,7 +5,6 @@ using UnityEngine;
 public class TargetTriggerArea : MonoBehaviour
 {
     public Camera camera;
-    public float raycastLength;
     private List<GameObject> targets = new List<GameObject>();
     private List<GameObject> targetsInSight = new List<GameObject>();
 
@@ -24,7 +23,7 @@ public class TargetTriggerArea : MonoBehaviour
             }
             Ray ray = new Ray(camera.transform.position, target.transform.position - camera.transform.position);
             RaycastHit raycastHit;
-            bool hit = Physics.Raycast(ray, out raycastHit, raycastLength);
+            bool hit = Physics.Raycast(ray, out raycastHit);
             if (!hit || raycastHit.collider.gameObject != target)
             {
                 continue;

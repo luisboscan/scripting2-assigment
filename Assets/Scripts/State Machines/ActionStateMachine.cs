@@ -35,13 +35,7 @@ public class ActionStateMachine : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.T))
         {
-            if (cameraStateMachine.State == CameraStates.Idle || cameraStateMachine.State == CameraStates.PreIdle)
-            {
-                cameraStateMachine.ChangeState(CameraStates.PreTargeting);
-            } else if (cameraStateMachine.State == CameraStates.Targeting || cameraStateMachine.State == CameraStates.PreTargeting)
-            {
-                cameraStateMachine.ChangeState(CameraStates.PreIdle);
-            }
+            cameraStateMachine.ToggleTargeting();
         }
     }
 

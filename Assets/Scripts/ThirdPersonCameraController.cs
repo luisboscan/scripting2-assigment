@@ -14,9 +14,6 @@ public class ThirdPersonCameraController : MonoBehaviour, CameraController
     Quaternion originalRotation;
     public float smoothTime = 0.1f;
 
-    private Vector3 currentDampVelocity;
-    private Vector3 currentDampVelocity2;
-
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -66,6 +63,6 @@ public class ThirdPersonCameraController : MonoBehaviour, CameraController
 
     public void Reset()
     {
-        currentAngle = target.transform.rotation.eulerAngles.y;
+        currentAngle = transform.rotation.eulerAngles.y;
     }
 }
