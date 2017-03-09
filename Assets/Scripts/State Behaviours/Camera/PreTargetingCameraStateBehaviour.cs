@@ -21,7 +21,7 @@ public class PreTargetingCameraStateBehaviour : TransitioningCameraStateBehaviou
 
     public override void EnterState()
     {
-        GameObject nextAvailableTarget = targetTriggerArea.getNextAvailableTarget();
+        GameObject nextAvailableTarget = targetTriggerArea.getNextTarget();
         targetingCameraController.target = nextAvailableTarget;
         cameraTransitionObject = new CameraTransitionObject(targetingCameraController, CameraStates.Targeting);
         base.EnterState();
@@ -29,7 +29,7 @@ public class PreTargetingCameraStateBehaviour : TransitioningCameraStateBehaviou
 
     public override bool CanEnterState()
     {
-        GameObject nextAvailableTarget = targetTriggerArea.getNextAvailableTarget();
+        GameObject nextAvailableTarget = targetTriggerArea.getNextTarget();
         return nextAvailableTarget != null;
     }
 }

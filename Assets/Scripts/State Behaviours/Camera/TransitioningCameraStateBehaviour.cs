@@ -5,34 +5,35 @@ using UnityEngine;
 
 public abstract class TransitioningCameraStateBehaviour : StateBehaviour<CameraStates>
 {
+    public Camera cameraComponent;
+    public AnimationCurve transitionSpeedCurve;
+    public float transitionTime = 0.3f;
+
     protected CameraTransitionObject cameraTransitionObject;
-    public AnimationCurve throwSpeedCurve;
 
     private float startTime;
-    public float transitionTime = 0.5f;
-
-    Vector3 originPosition;
-    Quaternion originRotation;
+    private Vector3 originCameraPosition;
+    private Quaternion originCameraRotation;
 
     public override void EnterState()
     {
         startTime = Time.time;
-        originPosition = transform.position;
-        originRotation = transform.rotation;
+        originCameraPosition = cameraComponent.transform.position;
+        originCameraRotation = cameraComponent.transform.rotation;
         cameraTransitionObject.ControllerToTransitionTo.Reset();
     }
 
     public override void FixedUpdateState()
     {
         float elapsedTime = Time.time - startTime;
-        float delta = throwSpeedCurve.Evaluate(elapsedTime / transitionTime);
+        float delta = transitionSpeedCurve.Evaluate(elapsedTime / transitionTime);
 
         Vector3 nextPosition;
         Quaternion nextRotation;
         cameraTransitionObject.ControllerToTransitionTo.GetNextState(out nextPosition, out nextRotation);
 
-        transform.position = Vector3.Lerp(originPosition, nextPosition, delta);
-        transform.rotation = Quaternion.Lerp(originRotation, nextRotation, delta);
+        cameraComponent.transform.position = Vector3.Lerp(originCameraPosition, nextPosition, delta);
+        cameraComponent.transform.rotation = Quaternion.Lerp(originCameraRotation, nextRotation, delta);
 
         if (delta >= 1)
         {

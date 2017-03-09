@@ -4,11 +4,11 @@ using System.Collections;
 public class PlayerInput : MonoBehaviour {
 
     public KeyboardMouseConfig keyboardMouseConfig;
-    public WindowsGamepadConfig windowsGamepadConfig;
     public float horizontalDirection;
     public float verticalDirection;
     public bool holdingJump;
     public bool jumped;
+    public bool targeted;
     [Tooltip("Rotation from the mouse to apply on the camera.")]
     public Vector3 rotation;
 
@@ -17,25 +17,26 @@ public class PlayerInput : MonoBehaviour {
         this.SetDirection();
         this.SetRotation();
         this.SetJump();
+        this.SetTargeting();
     }
 
     void SetDirection()
     {
         this.horizontalDirection = 0;
-        if (Input.GetKey(this.keyboardMouseConfig.left) || Input.GetAxisRaw("Horizontal") < 0)
+        if (Input.GetKey(this.keyboardMouseConfig.left))
         {
             this.horizontalDirection = -1;
         }
-        else if (Input.GetKey(this.keyboardMouseConfig.right) || Input.GetAxisRaw("Horizontal") > 0)
+        else if (Input.GetKey(this.keyboardMouseConfig.right))
         {
             this.horizontalDirection = 1;
         }
         this.verticalDirection = 0;
-        if (Input.GetKey(this.keyboardMouseConfig.down) || Input.GetAxisRaw("Vertical") < 0)
+        if (Input.GetKey(this.keyboardMouseConfig.down))
         {
             this.verticalDirection = -1;
         }
-        else if (Input.GetKey(this.keyboardMouseConfig.up) || Input.GetAxisRaw("Vertical") > 0)
+        else if (Input.GetKey(this.keyboardMouseConfig.up))
         {
             this.verticalDirection = 1;
         }
@@ -56,7 +57,12 @@ public class PlayerInput : MonoBehaviour {
 
     void SetJump()
     {
-        jumped = Input.GetKeyDown(this.keyboardMouseConfig.jump) || Input.GetKeyDown(this.windowsGamepadConfig.jump);
-        holdingJump = Input.GetKey(this.keyboardMouseConfig.jump) || Input.GetKey(this.windowsGamepadConfig.jump);
+        jumped = Input.GetKeyDown(this.keyboardMouseConfig.jump);
+        holdingJump = Input.GetKey(this.keyboardMouseConfig.jump);
+    }
+
+    void SetTargeting()
+    {
+        targeted = Input.GetKeyDown(this.keyboardMouseConfig.target);
     }
 }

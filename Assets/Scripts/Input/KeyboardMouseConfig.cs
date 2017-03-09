@@ -8,7 +8,8 @@ public class KeyboardMouseConfig : MonoBehaviour
     public KeyCode up;
     public KeyCode down;
     public KeyCode jump;
+    public KeyCode target;
     public bool invertY;
-    public float mouseXSensitivity;
-    public float mouseYSensitivity;
+    public float mouseXSensitivity = 200;
+    public float mouseYSensitivity = 200;
 }
