@@ -2,15 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Marks an object as targetable by the camera
+/// </summary>
 public class Targetable : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

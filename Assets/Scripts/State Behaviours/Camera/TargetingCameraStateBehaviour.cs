@@ -6,6 +6,7 @@ using UnityEngine;
 public class TargetingCameraStateBehaviour : StateBehaviour<CameraStates>
 {
     public CameraStateMachine stateMachine;
+    public GameObject player;
 
     public override CameraStates GetState()
     {
@@ -20,7 +21,8 @@ public class TargetingCameraStateBehaviour : StateBehaviour<CameraStates>
     public override void UpdateState()
     {
         stateMachine.RenderTargetingSprite(stateMachine.targetingCameraController.target);
-        if (!stateMachine.targetTriggerArea.IsTargetInRange(stateMachine.targetingCameraController.target))
+        GameObject target = stateMachine.targetingCameraController.target;
+        if (target == null || !stateMachine.targetTriggerArea.IsTargetInRange(target))
         {
             stateMachine.ChangeState(CameraStates.PreIdle);
         }
@@ -29,6 +31,7 @@ public class TargetingCameraStateBehaviour : StateBehaviour<CameraStates>
     public override void FixedUpdateState()
     {
         stateMachine.targetingCameraController.UpdateCameraState();
+        player.transform.LookAt(stateMachine.targetingCameraController.target.transform);
     }
 
     public override bool CanEnterState()

@@ -12,7 +12,6 @@ public class TargetingCameraController : MonoBehaviour, CameraController
     public float smoothDampTime = 0.2f;
 
     private Vector3 currentDampVelocity;
-    private Vector3 currentDampVelocity2;
 
     public void UpdateCameraState()
     {
@@ -57,6 +56,6 @@ public class TargetingCameraController : MonoBehaviour, CameraController
 
     public void Reset()
     {
-
+        // No need to reset this type of camera
     }
 }

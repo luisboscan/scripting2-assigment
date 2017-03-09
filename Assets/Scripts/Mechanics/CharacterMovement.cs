@@ -5,8 +5,6 @@ public class CharacterMovement : MonoBehaviour {
 
     public CharacterController characterController;
     public GroundCheck groundCheck;
-    private Vector3 currentSpeed;
-    private Vector3 tmpVector3 = Vector3.zero;
 
     // Horizontal movement variables
     public float maxGroundSpeed = 0.15f;
@@ -69,6 +67,7 @@ public class CharacterMovement : MonoBehaviour {
 
     private Vector3 currentInput;
     private float currentGroundSpeed;
+    private Vector3 currentSpeed;
 
     public void UpdateInput(float inputX, float inputZ, bool holdingJump)
     {
@@ -221,10 +220,6 @@ public class CharacterMovement : MonoBehaviour {
         Quaternion rotation = Camera.main.transform.rotation;
         rotation = Quaternion.Euler(0, rotation.eulerAngles.y, rotation.eulerAngles.z);
         characterController.Move(rotation * speed);
-        if (currentInput != Vector3.zero)
-        {
-            transform.rotation = Quaternion.LookRotation(rotation * new Vector3(currentInput.x, 0, currentInput.z));
-        }
     }
 
     public void SetSpeed(float x, float y, float z)

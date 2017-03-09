@@ -9,7 +9,8 @@ public class PlayerInput : MonoBehaviour {
     public bool holdingJump;
     public bool jumped;
     public bool targeted;
-    [Tooltip("Rotation from the mouse to apply on the camera.")]
+    public bool teleported;
+    public bool shooting;
     public Vector3 rotation;
 
     void Update()
@@ -18,6 +19,8 @@ public class PlayerInput : MonoBehaviour {
         this.SetRotation();
         this.SetJump();
         this.SetTargeting();
+        this.SetTeleport();
+        this.SetShoot();
     }
 
     void SetDirection()
@@ -64,5 +67,15 @@ public class PlayerInput : MonoBehaviour {
     void SetTargeting()
     {
         targeted = Input.GetKeyDown(this.keyboardMouseConfig.target);
+    }
+
+    void SetTeleport()
+    {
+        teleported = Input.GetKeyDown(this.keyboardMouseConfig.teleport);
+    }
+
+    void SetShoot()
+    {
+        shooting = Input.GetKey(this.keyboardMouseConfig.shoot);
     }
 }

@@ -21,7 +21,7 @@ public class JumpingActionStateBehaviour : StateBehaviour<ActionStates>
     public override void EnterState()
     {
         bool canJumpInMidAir = false;
-        bool jumped = characterMovement.Jump(canJumpInMidAir);
+        characterMovement.Jump(canJumpInMidAir);
         stateMachine.ChangeState(ActionStates.Idle);
     }
 }

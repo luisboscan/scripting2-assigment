@@ -20,7 +20,7 @@ public abstract class TransitioningCameraStateBehaviour : StateBehaviour<CameraS
         startTime = Time.time;
         originCameraPosition = cameraComponent.transform.position;
         originCameraRotation = cameraComponent.transform.rotation;
-        cameraTransitionObject.ControllerToTransitionTo.Reset();
+        cameraTransitionObject.controllerToTransitionTo.Reset();
     }
 
     public override void FixedUpdateState()
@@ -30,14 +30,14 @@ public abstract class TransitioningCameraStateBehaviour : StateBehaviour<CameraS
 
         Vector3 nextPosition;
         Quaternion nextRotation;
-        cameraTransitionObject.ControllerToTransitionTo.GetNextState(out nextPosition, out nextRotation);
+        cameraTransitionObject.controllerToTransitionTo.GetNextState(out nextPosition, out nextRotation);
 
         cameraComponent.transform.position = Vector3.Lerp(originCameraPosition, nextPosition, delta);
         cameraComponent.transform.rotation = Quaternion.Lerp(originCameraRotation, nextRotation, delta);
 
         if (delta >= 1)
         {
-            GetStateMachine().ChangeState(cameraTransitionObject.StateToTransitionTo);
+            GetStateMachine().ChangeState(cameraTransitionObject.stateToTransitionTo);
         }
     }
 }

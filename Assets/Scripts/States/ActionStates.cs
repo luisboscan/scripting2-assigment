@@ -6,5 +6,7 @@ public enum ActionStates {
 
     // None of the other actions is being performed
     Idle,
-    Jumping
+    Jumping,
+    Teleporting,
+    Shooting
 }

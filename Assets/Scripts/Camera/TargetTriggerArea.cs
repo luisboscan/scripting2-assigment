@@ -4,9 +4,21 @@ using UnityEngine;
 
 public class TargetTriggerArea : MonoBehaviour
 {
-    public Camera camera;
+    public Camera cameraComponent;
+
     private List<GameObject> targetsInRange = new List<GameObject>();
     private List<GameObject> targetsInSight = new List<GameObject>();
+
+    private void Update()
+    {
+        for(int i = targetsInRange.Count-1; i>=0; i--)
+        {
+            if (targetsInRange[i] == null)
+            {
+                targetsInRange.RemoveAt(i);
+            }
+        }
+    }
 
     public GameObject getNextTarget()
     {
@@ -26,7 +38,7 @@ public class TargetTriggerArea : MonoBehaviour
         for (int i = 0; i < targets.Count; i++)
         {
             GameObject target = targets[i];
-            if (IsTargetInCameraViewport(target) && IsTargetInCameraLineOfSight(target))
+            if (target != null && IsTargetInCameraViewport(target) && IsTargetInCameraLineOfSight(target))
             {
                 targetsInSight.Add(target);
             }
@@ -35,13 +47,13 @@ public class TargetTriggerArea : MonoBehaviour
 
     private bool IsTargetInCameraViewport(GameObject target)
     {
-        Vector3 viewportPoint = camera.WorldToViewportPoint(target.transform.position);
+        Vector3 viewportPoint = cameraComponent.WorldToViewportPoint(target.transform.position);
         return viewportPoint.x >= 0 && viewportPoint.x <= 1 && viewportPoint.y >= 0 && viewportPoint.y <= 1;
     }
 
     private bool IsTargetInCameraLineOfSight(GameObject target)
     {
-        Ray ray = new Ray(camera.transform.position, target.transform.position - camera.transform.position);
+        Ray ray = new Ray(cameraComponent.transform.position, target.transform.position - cameraComponent.transform.position);
         RaycastHit raycastHit;
         bool hit = Physics.Raycast(ray, out raycastHit);
         return hit && raycastHit.collider.gameObject == target;
@@ -54,7 +66,7 @@ public class TargetTriggerArea : MonoBehaviour
         for (int i = 0; i < targets.Count; i++)
         {
             GameObject target = targets[i];
-            Vector3 viewportPoint = camera.WorldToViewportPoint(target.transform.position);
+            Vector3 viewportPoint = cameraComponent.WorldToViewportPoint(target.transform.position);
             float distanceX = Mathf.Abs(viewportPoint.x - 0.5f);
             if (i == 0 || distanceX < minDistance)
             {

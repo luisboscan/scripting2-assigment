@@ -8,13 +8,10 @@ public class ThirdPersonCameraController : MonoBehaviour, CameraController
     public Camera cameraComponent;
     public PlayerInput playerInput;
     public GameObject target;
-    public float minVerticalAngle = -90;
-    public float maxVerticalAngle = 90;
 
     private Vector3 offsetBetweenTargetAndCamera;
     private Quaternion originalCameraRotation;
     private float currentHorizontalAngle;
-    private float currentHorizontalVertical;
     private GameObject dummy;
 
     void Start()

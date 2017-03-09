@@ -41,4 +41,15 @@ public class CameraStateMachine : StateMachine<CameraStates>
             targettingSprite.SetActive(false);
         }
     }
+
+    public GameObject TargetedObject
+    {
+        get {
+            if (State == CameraStates.Targeting || State == CameraStates.PreTargeting)
+            {
+                return targetingCameraController.target;
+            }
+            return null;
+        }
+    }
 }

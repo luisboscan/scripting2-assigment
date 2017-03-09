@@ -35,5 +35,13 @@ public class IdleActionStateBehaviour : StateBehaviour<ActionStates>
         {
             cameraStateMachine.ToggleTargeting();
         }
+        if (playerInput.teleported)
+        {
+            stateMachine.ChangeState(ActionStates.Teleporting);
+        }
+        if (playerInput.shooting)
+        {
+            stateMachine.ChangeState(ActionStates.Shooting);
+        }
     }
 }
