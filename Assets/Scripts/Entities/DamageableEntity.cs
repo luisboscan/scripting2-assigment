@@ -34,7 +34,6 @@ public class DamageableEntity : MonoBehaviour
 
     protected virtual void OnDeath()
     {
-        SendMessage("GameObjectDied");
         Destroy(gameObject);
     }
 

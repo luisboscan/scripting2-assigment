@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class StairsActivator : BaseActivator {
 
+    [Tooltip("Script that will be activated once all the activations are done.")]
     public MoveDistance moveDistance;
+    [Tooltip("How many activations are necesary before activating the stairs.")]
     public int mandatoryActivations = 3;
 
     private bool activated;

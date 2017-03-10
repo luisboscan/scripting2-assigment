@@ -24,7 +24,6 @@ public class ThirdPersonCameraController : MonoBehaviour, CameraController
     public void UpdateCameraState()
     {
         currentHorizontalAngle = currentHorizontalAngle + playerInput.rotation.x * Time.fixedDeltaTime;
-        //currentVerticalAngle = currentVerticalAngle + playerInput.rotation.y * Time.fixedDeltaTime;
 
         Vector3 nextPosition;
         Quaternion nextRotation;
@@ -41,23 +40,6 @@ public class ThirdPersonCameraController : MonoBehaviour, CameraController
         dummy.transform.RotateAround(target.transform.position, Vector3.up, currentHorizontalAngle);
         position = dummy.transform.position;
         rotation = dummy.transform.rotation;
-    }
-
-    private float ClampAngle(float angle, float min, float max)
-    {
-        angle = angle % 360;
-        if ((angle >= -360) && (angle <= 360))
-        {
-            if (angle < -360)
-            {
-                angle += 360;
-            }
-            if (angle > 360)
-            {
-                angle -= 360;
-            }
-        }
-        return Mathf.Clamp(angle, min, max);
     }
 
     public void Reset()

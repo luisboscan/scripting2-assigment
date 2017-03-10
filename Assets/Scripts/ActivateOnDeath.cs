@@ -6,7 +6,7 @@ public class ActivateOnDeath : MonoBehaviour {
 
     public BaseActivator activator;
 
-    void GameObjectDied() {
+    void OnDestroy() {
         activator.Activate(gameObject);
     }
 }

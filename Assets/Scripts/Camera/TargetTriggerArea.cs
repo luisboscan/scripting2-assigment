@@ -11,6 +11,7 @@ public class TargetTriggerArea : MonoBehaviour
 
     private void Update()
     {
+        // Cleanup targets from the list that have been destroyed
         for(int i = targetsInRange.Count-1; i>=0; i--)
         {
             if (targetsInRange[i] == null)
@@ -45,12 +46,18 @@ public class TargetTriggerArea : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks if the target is currently in the camera viewport
+    /// </summary>
     private bool IsTargetInCameraViewport(GameObject target)
     {
         Vector3 viewportPoint = cameraComponent.WorldToViewportPoint(target.transform.position);
         return viewportPoint.x >= 0 && viewportPoint.x <= 1 && viewportPoint.y >= 0 && viewportPoint.y <= 1;
     }
 
+    /// <summary>
+    /// Checks if the target is being blocked by another object when being seen by the camera
+    /// </summary>
     private bool IsTargetInCameraLineOfSight(GameObject target)
     {
         Ray ray = new Ray(cameraComponent.transform.position, target.transform.position - cameraComponent.transform.position);
@@ -66,6 +73,7 @@ public class TargetTriggerArea : MonoBehaviour
         for (int i = 0; i < targets.Count; i++)
         {
             GameObject target = targets[i];
+            // Choose the target that is closest to the camera center in X
             Vector3 viewportPoint = cameraComponent.WorldToViewportPoint(target.transform.position);
             float distanceX = Mathf.Abs(viewportPoint.x - 0.5f);
             if (i == 0 || distanceX < minDistance)

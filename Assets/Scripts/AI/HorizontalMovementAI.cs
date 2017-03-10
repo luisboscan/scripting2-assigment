@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class HorizontalMovementAI : MonoBehaviour {
 
+    [Tooltip("How much distance to move before changing direction.")]
     public float distance;
+    [Tooltip("Speed to move at.")]
     public float speed;
 
     private float movedDistance;
     private float direction = 1;
 	
-	// Update is called once per frame
 	void FixedUpdate () {
         float distanceToMove = speed * Time.fixedDeltaTime;
         movedDistance += distanceToMove;

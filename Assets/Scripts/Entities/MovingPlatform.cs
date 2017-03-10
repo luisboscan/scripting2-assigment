@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MovingPlatformUser : MonoBehaviour {
+public class MovingPlatform : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {

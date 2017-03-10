@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class BridgeActivator : MonoBehaviour {
 
+    [Tooltip("Bridge that will be moved.")]
     public GameObject bridge;
+    [Tooltip("Position to move the bridge to.")]
     public Transform desiredPosition;
+    [Tooltip("Speed to move at.")]
     public float speed;
 
     private bool active;
@@ -22,6 +25,7 @@ public class BridgeActivator : MonoBehaviour {
 
     void OnTriggerStay(Collider collider)
     {
+        // Move bridge as long as the trigger is activated
         active = true;
     }
 }
