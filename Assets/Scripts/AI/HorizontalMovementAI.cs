@@ -16,6 +16,8 @@ public class HorizontalMovementAI : MonoBehaviour {
         movedDistance += distanceToMove;
         if (movedDistance > distance)
         {
+            // reverse direction when the distance 
+            // has been traversed and start over
             direction *= -1;
             movedDistance = 0;
         }
