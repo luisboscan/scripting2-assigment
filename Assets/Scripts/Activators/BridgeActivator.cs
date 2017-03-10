@@ -10,11 +10,11 @@ public class BridgeActivator : MonoBehaviour {
 
     private bool active;
 
-    void Update()
+    void FixedUpdate()
     {
         if (active)
         {
-            Vector3 nextPosition = Vector3.MoveTowards(bridge.transform.position, desiredPosition.transform.position, speed * Time.deltaTime);
+            Vector3 nextPosition = Vector3.MoveTowards(bridge.transform.position, desiredPosition.transform.position, speed * Time.fixedDeltaTime);
             bridge.transform.Translate(nextPosition - bridge.transform.position);
         }
         active = false;

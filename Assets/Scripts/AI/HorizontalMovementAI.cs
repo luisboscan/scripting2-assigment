@@ -12,7 +12,7 @@ public class HorizontalMovementAI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        float distanceToMove = speed * Time.deltaTime;
+        float distanceToMove = speed * Time.fixedDeltaTime;
         movedDistance += distanceToMove;
         if (movedDistance > distance)
         {
