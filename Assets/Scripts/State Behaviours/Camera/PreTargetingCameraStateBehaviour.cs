@@ -19,6 +19,12 @@ public class PreTargetingCameraStateBehaviour : TransitioningCameraStateBehaviou
         return stateMachine;
     }
 
+    public override bool CanEnterState()
+    {
+        GameObject nextAvailableTarget = targetTriggerArea.getNextTarget();
+        return nextAvailableTarget != null;
+    }
+
     public override void EnterState()
     {
         GameObject nextAvailableTarget = targetTriggerArea.getNextTarget();
@@ -27,9 +33,9 @@ public class PreTargetingCameraStateBehaviour : TransitioningCameraStateBehaviou
         base.EnterState();
     }
 
-    public override bool CanEnterState()
+    public override void UpdateState()
     {
-        GameObject nextAvailableTarget = targetTriggerArea.getNextTarget();
-        return nextAvailableTarget != null;
+        GameObject nextAvailableTarget = stateMachine.targetTriggerArea.getNextTarget();
+        stateMachine.RenderTargetingSprite(nextAvailableTarget);
     }
 }

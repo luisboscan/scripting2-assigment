@@ -18,9 +18,20 @@ public class PreIdleCameraStateBehaviour : TransitioningCameraStateBehaviour
         return stateMachine;
     }
 
+    public override bool CanEnterState()
+    {
+        return stateMachine.State != CameraStates.Idle;
+    }
+
     public override void EnterState()
     {
         cameraTransitionObject = new CameraTransitionObject(thirdPersonCameraController, CameraStates.Idle);
         base.EnterState();
+    }
+
+    public override void UpdateState()
+    {
+        GameObject nextAvailableTarget = stateMachine.targetTriggerArea.getNextTarget();
+        stateMachine.RenderTargetingSprite(nextAvailableTarget);
     }
 }

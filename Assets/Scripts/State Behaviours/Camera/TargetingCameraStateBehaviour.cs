@@ -37,6 +37,6 @@ public class TargetingCameraStateBehaviour : StateBehaviour<CameraStates>
     public override bool CanEnterState()
     {
         GameObject nextAvailableTarget = stateMachine.targetTriggerArea.getNextTarget();
-        return nextAvailableTarget != null;
+        return nextAvailableTarget != null && stateMachine.State != CameraStates.Targeting;
     }
 }

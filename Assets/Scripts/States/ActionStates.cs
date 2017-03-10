@@ -8,5 +8,6 @@ public enum ActionStates {
     Idle,
     Jumping,
     Teleporting,
-    Shooting
+    Shooting,
+    Respawning
 }
